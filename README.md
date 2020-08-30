@@ -1,4 +1,4 @@
-<h2> 👋 Hello, GitHub user! </h2>
+<h2> :wave: Hello, GitHub user! </h2>
 
 <strong>@antonAce | Anton Kozyriev</strong>
 
@@ -13,5 +13,3 @@
 <a href="https://t.me/anton_on_github_bot">
   <img align="left" alt="Telegram" width="25px" src="https://raw.githubusercontent.com/antonAce/antonAce/master/static/telegram.svg" />
 </a>
-
-<br>
