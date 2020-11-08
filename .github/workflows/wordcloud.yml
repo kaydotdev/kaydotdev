@@ -1,4 +1,4 @@
-name: 'Generate wordcloud'
+name: 'Profile daemon'
 on:
   schedule:
     - cron: '0 */12 * * */1'
