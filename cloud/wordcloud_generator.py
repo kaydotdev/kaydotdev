@@ -1,7 +1,7 @@
 # AUTOMATED SCRIPT FOR GENERATING WORDCLOUD
 # FOR README.MD FROM TOPICS OF PUBLIC REPOSITORIES
 
-import sys
+import os
 import matplotlib.pyplot as plt
 
 from wordcloud import WordCloud
@@ -9,7 +9,7 @@ from json import loads
 from requests import get
 
 
-AUTH_TOKEN = sys.argv[1]
+AUTH_TOKEN = os.getenv('AUTH_TOKEN')
 PROFILE_NAME = 'antonace'
 GITHUB_ACCEPTABLE_HEADERS = \
     {
