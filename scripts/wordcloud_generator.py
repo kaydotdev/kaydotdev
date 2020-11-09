@@ -25,7 +25,7 @@ def fetch_topics(repository_name: str) -> list:
     topics_response = get(f'https://api.github.com/repos/{PROFILE_NAME}/{repository_name}/topics',
                           headers=GITHUB_ACCEPTABLE_HEADERS)
     topics = loads(str(topics_response.text))
-    return [topic.replace('-', '_') for topic in topics["names"]]
+    return [topic.replace('-', '+') for topic in topics["names"]]
 
 
 print('FETCHING REPOSITORIES\' TOPICS')
