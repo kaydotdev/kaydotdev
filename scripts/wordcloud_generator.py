@@ -18,7 +18,7 @@ GITHUB_ACCEPTABLE_HEADERS = \
         'Authorization': f'Bearer {AUTH_TOKEN}'
     }
 
-WORDCLOUD_IMAGE_FILE_PATH = 'wordcloud.png'
+WORDCLOUD_IMAGE_FILE_PATH = 'static/png/wordcloud.png'
 
 
 def fetch_topics(repository_name: str) -> list:
