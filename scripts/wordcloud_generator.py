@@ -18,7 +18,8 @@ GITHUB_ACCEPTABLE_HEADERS = \
         'Authorization': f'Bearer {AUTH_TOKEN}'
     }
 
-WORDCLOUD_IMAGE_FILE_PATH = 'static/png/wordcloud.png'
+WORDCLOUD_IMAGE_FILE_PATH = 'static/png'
+WORDCLOUD_IMAGE_FILE_PATH = 'wordcloud.png'
 
 
 def fetch_topics(repository_name: str) -> list:
@@ -38,7 +39,10 @@ joined_topics = ' '.join(repositories_topics)
 
 print('GENERATING WORDCLOUD FROM TOPICS')
 
+if not os.path.exists(WORDCLOUD_IMAGE_FILE_PATH):
+    os.makedirs(WORDCLOUD_IMAGE_FILE_PATH)
+
 cloud = WordCloud(width=800, height=600, background_color='white', colormap="rainbow").generate(joined_topics)
-cloud.to_file(WORDCLOUD_IMAGE_FILE_PATH)
+cloud.to_file(WORDCLOUD_IMAGE_FILE_PATH + '/' + WORDCLOUD_IMAGE_FILE_PATH)
 
 print('WORDCLOUD SAVED SUCCESSFULLY')
