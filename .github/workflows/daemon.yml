@@ -1,7 +1,7 @@
 name: 'Profile daemon'
 on:
-  schedule:
-    - cron: '0 */12 * * */1'
+  push:
+    branches: [ master ]
 
 jobs:
   build:
@@ -19,7 +19,7 @@ jobs:
           python -m pip install -r ./cloud/packages
       - name: Execute script
         env:
-          AUTH_TOKEN: ${{ secrets.GITHUB_AUTH_TOKEN }}
+          AUTH_TOKEN: ${{ secrets.REPOSITORY_AUTH_TOKEN }}
         run: |
           python ./cloud/wordcloud_generator.py
       - name: Commit changes
