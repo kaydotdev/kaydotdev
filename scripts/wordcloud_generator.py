@@ -43,6 +43,8 @@ print('GENERATING WORDCLOUD FROM TOPICS')
 
 wordcloud_location = WORDCLOUD_IMAGE_FILE_PATH + '/' + WORDCLOUD_IMAGE_FILE_NAME
 wordcloud_image = np.array(Image.open(WORDCLOUD_MASK_FILE_PATH))
+wordcloud_image = np.where(wordcloud_image == 0, 255, wordcloud_image)
+
 stopwords = set(STOPWORDS)
 
 if not os.path.exists(WORDCLOUD_IMAGE_FILE_PATH):
