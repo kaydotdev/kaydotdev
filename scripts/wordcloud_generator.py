@@ -50,6 +50,10 @@ if not os.path.exists(WORDCLOUD_IMAGE_FILE_PATH):
 
 cloud = WordCloud(mask=wordcloud_image, background_color='white',
                   stopwords=stopwords, max_words=1000).generate(joined_topics)
+
+cloud_color_scheme = ImageColorGenerator(wordcloud_image)
+cloud.recolor(color_func=cloud_color_scheme)
+
 cloud.to_file(wordcloud_location)
 
 print('WORDCLOUD SAVED SUCCESSFULLY')
