@@ -2,9 +2,11 @@
 # FOR README.MD FROM TOPICS OF PUBLIC REPOSITORIES
 
 import os
+import numpy as np
 import matplotlib.pyplot as plt
 
-from wordcloud import WordCloud
+from wordcloud import WordCloud, STOPWORDS
+from PIL import Image
 from json import loads
 from requests import get
 
@@ -19,6 +21,7 @@ GITHUB_ACCEPTABLE_HEADERS = \
     }
 
 WORDCLOUD_IMAGE_FILE_PATH = 'static/png'
+WORDCLOUD_MASK_FILE_PATH = WORDCLOUD_IMAGE_FILE_PATH + '/' + 'wordcloud_mask.png'
 WORDCLOUD_IMAGE_FILE_NAME = 'wordcloud.png'
 
 
@@ -26,23 +29,27 @@ def fetch_topics(repository_name: str) -> list:
     topics_response = get(f'https://api.github.com/repos/{PROFILE_NAME}/{repository_name}/topics',
                           headers=GITHUB_ACCEPTABLE_HEADERS)
     topics = loads(str(topics_response.text))
-    return [topic.replace('-', '+') for topic in topics["names"]]
+    return [topic.replace('-', '.') for topic in topics['names']]
 
 
 print('FETCHING REPOSITORIES\' TOPICS')
 
 response = get(f'https://api.github.com/users/{PROFILE_NAME}/repos', headers=GITHUB_ACCEPTABLE_HEADERS)
 repositories = loads(str(response.text))
-repositories_topics = [' '.join(fetch_topics(repo["name"])) for repo in repositories]
+repositories_topics = [' '.join(fetch_topics(repo['name'])) for repo in repositories]
 joined_topics = ' '.join(repositories_topics)
 
-
 print('GENERATING WORDCLOUD FROM TOPICS')
+
+wordcloud_location = WORDCLOUD_IMAGE_FILE_PATH + '/' + WORDCLOUD_IMAGE_FILE_NAME
+wordcloud_image = np.array(Image.open(WORDCLOUD_MASK_FILE_PATH))
+stopwords = set(STOPWORDS)
 
 if not os.path.exists(WORDCLOUD_IMAGE_FILE_PATH):
     os.makedirs(WORDCLOUD_IMAGE_FILE_PATH)
 
-cloud = WordCloud(width=800, height=600, background_color='white', colormap="rainbow").generate(joined_topics)
-cloud.to_file(WORDCLOUD_IMAGE_FILE_PATH + '/' + WORDCLOUD_IMAGE_FILE_NAME)
+cloud = WordCloud(mask=wordcloud_image, background_color='white',
+                  stopwords=stopwords, max_words=1000).generate(joined_topics)
+cloud.to_file(wordcloud_location)
 
 print('WORDCLOUD SAVED SUCCESSFULLY')
