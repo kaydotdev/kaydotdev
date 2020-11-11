@@ -20,7 +20,7 @@ GITHUB_ACCEPTABLE_HEADERS = \
         'Authorization': f'Bearer {AUTH_TOKEN}'
     }
 
-WORDCLOUD_FONT_PATH = 'static/font/code.ttf'
+WORDCLOUD_FONT_PATH = 'static/font/firacode.ttf'
 WORDCLOUD_IMAGE_FILE_PATH = 'static/png'
 WORDCLOUD_MASK_FILE_PATH = WORDCLOUD_IMAGE_FILE_PATH + '/' + 'wordcloud_mask.png'
 WORDCLOUD_IMAGE_FILE_NAME = 'wordcloud.png'
