@@ -48,8 +48,7 @@ wordcloud_image = np.array(Image.open(WORDCLOUD_MASK_FILE_PATH))
 if not os.path.exists(WORDCLOUD_IMAGE_FILE_PATH):
     os.makedirs(WORDCLOUD_IMAGE_FILE_PATH)
 
-cloud = WordCloud(background_color="white", random_state=42,
-                  mask=wordcloud_image, font_path=WORDCLOUD_FONT_PATH)
+cloud = WordCloud(background_color="white", mask=wordcloud_image, font_path=WORDCLOUD_FONT_PATH)
 
 cloud.generate(joined_topics)
 cloud_color_scheme = ImageColorGenerator(wordcloud_image)
