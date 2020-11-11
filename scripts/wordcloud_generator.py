@@ -5,7 +5,7 @@ import os
 import numpy as np
 import matplotlib.pyplot as plt
 
-from wordcloud import WordCloud, STOPWORDS, ImageColorGenerator
+from wordcloud import WordCloud, ImageColorGenerator
 from PIL import Image
 from json import loads
 from requests import get
@@ -20,6 +20,7 @@ GITHUB_ACCEPTABLE_HEADERS = \
         'Authorization': f'Bearer {AUTH_TOKEN}'
     }
 
+WORDCLOUD_FONT_PATH = 'static/font/code.ttf'
 WORDCLOUD_IMAGE_FILE_PATH = 'static/png'
 WORDCLOUD_MASK_FILE_PATH = WORDCLOUD_IMAGE_FILE_PATH + '/' + 'wordcloud_mask.png'
 WORDCLOUD_IMAGE_FILE_NAME = 'wordcloud.png'
@@ -44,13 +45,12 @@ print('GENERATING WORDCLOUD FROM TOPICS')
 wordcloud_location = WORDCLOUD_IMAGE_FILE_PATH + '/' + WORDCLOUD_IMAGE_FILE_NAME
 wordcloud_image = np.array(Image.open(WORDCLOUD_MASK_FILE_PATH))
 
-stopwords = set(STOPWORDS)
-
 if not os.path.exists(WORDCLOUD_IMAGE_FILE_PATH):
     os.makedirs(WORDCLOUD_IMAGE_FILE_PATH)
 
-cloud = WordCloud(mask=wordcloud_image, background_color='white').generate(joined_topics)
+cloud = WordCloud(background_color="white", random_state=42, font_path=WORDCLOUD_FONT_PATH)
 
+cloud.generate(joined_topics)
 cloud_color_scheme = ImageColorGenerator(wordcloud_image)
 cloud.recolor(color_func=cloud_color_scheme)
 
