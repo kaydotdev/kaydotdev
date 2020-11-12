@@ -1,7 +1,7 @@
 name: 'Profile daemon'
 on:
-  push:
-    branches: [ master ]
+  schedule:
+    - cron: '0 */1 * * *'
 
 jobs:
   build:
