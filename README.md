@@ -21,7 +21,7 @@
   <img align="left" alt="Github" width="25px" src="https://raw.githubusercontent.com/antonAce/antonAce/master/static/svg/github.svg" />
 </a>
 <a href="mailto:sonara4mus@gmail.com">
-  <img align="left" alt="Gmail" width="25px" src="https://raw.githubusercontent.com/antonAce/antonAce/master/static/svg/gmail.svg" />
+  <img align="left" alt="Gmail" width="45px" src="https://raw.githubusercontent.com/antonAce/antonAce/master/static/svg/gmail.svg" />
 </a>
 <a href="https://www.linkedin.com/in/anton-kozyriev-66b272166">
   <img align="left" alt="LinkedIn" width="25px" src="https://raw.githubusercontent.com/antonAce/antonAce/master/static/svg/linkedin.svg" />
