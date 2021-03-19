@@ -28,4 +28,4 @@ jobs:
           git config --global user.name "Octocat"
           git add .
           git commit -m "200 OK" || exit 0
-          git push
+          git push origin master
