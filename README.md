@@ -1,4 +1,4 @@
-<h1><img src="static/png/wordcloud.png"></h1>
+<h1><img src="https://raw.githubusercontent.com/antonAce/antonAce/master/static/png/wordcloud.png"></h1>
 
 <ul>
   <li>:ledger: I’m getting my master’s in Data Science and Mathematical modelling;</li>
