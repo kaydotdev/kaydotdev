@@ -22,7 +22,7 @@ GITHUB_ACCEPTABLE_HEADERS = \
 WORDCLOUD_FONT_PATH = 'static/font/firacode.ttf'
 WORDCLOUD_IMAGE_FILE_PATH = 'static/png'
 WORDCLOUD_MASK_FILE_PATH = WORDCLOUD_IMAGE_FILE_PATH + '/' + 'wordcloud_mask.png'
-WORDCLOUD_IMAGE_FILE_NAME = 'wordcloud.png'
+WORDCLOUD_IMAGE_FILE_NAME = 'wordcloud_nickname.png'
 
 
 def fetch_topics(repository_name: str) -> list:
