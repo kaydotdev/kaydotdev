@@ -1,0 +1,31 @@
+name: 'Profile daemon'
+on:
+  schedule:
+    - cron: '0 */1 * * *'
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout procedure
+        uses: actions/checkout@v2
+      - name: Setup Python
+        uses: actions/setup-python@v2
+        with:
+          python-version: 3.8
+      - name: Install packages
+        run: |
+          python -m pip install -r ./scripts/packages
+      - name: Execute scripts
+        env:
+          AUTH_TOKEN: ${{ secrets.REPOSITORY_AUTH_TOKEN }}
+        run: |
+          python ./scripts/wordcloud_generator.py
+      - name: Commit changes
+        run: |
+          git config --global user.email "octocat@anton.ace"
+          git config --global user.name "Octocat"
+          git add .
+          git commit -m "200 OK" || exit 0
+          git push origin master
