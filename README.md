@@ -1,6 +1,6 @@
-<h1><img src="https://raw.githubusercontent.com/antonAce/antonAce/master/static/gif/greeter.gif" width="800px"></h1>
+<h1><img src="./static/gif/hello.gif"></h1>
 
-<img align="right" alt="octocloud" width="300px" src="https://raw.githubusercontent.com/antonAce/antonAce/master/static/png/wordcloud.png">
+<img align="right" alt="octocloud" width="300px" src="./static/png/wordcloud.png">
 
 <a>My name is Anton! I'm a student, interested in the field of <strong>Cloud Technologies</strong> and <strong>Artificial intelligence</strong>!</a>
 
@@ -18,11 +18,11 @@
 <br>
 
 <a href="https://github.com/antonAce?tab=repositories">
-  <img align="left" alt="Github" width="25px" src="https://raw.githubusercontent.com/antonAce/antonAce/master/static/svg/github.svg" />
+  <img align="left" alt="Github" width="25px" src="./static/svg/github.svg" />
 </a>
 <a href="https://www.linkedin.com/in/anton-kozyriev-66b272166">
-  <img align="left" alt="LinkedIn" width="25px" src="https://raw.githubusercontent.com/antonAce/antonAce/master/static/svg/linkedin.svg" />
+  <img align="left" alt="LinkedIn" width="25px" src="./static/svg/linkedin.svg" />
 </a>
 <a href="https://t.me/anton_on_github_bot">
-  <img align="left" alt="Telegram" width="25px" src="https://raw.githubusercontent.com/antonAce/antonAce/master/static/svg/telegram.svg" />
+  <img align="left" alt="Telegram" width="25px" src="./static/svg/telegram.svg" />
 </a>
