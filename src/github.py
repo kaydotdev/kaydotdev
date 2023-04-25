@@ -14,7 +14,7 @@ logger = logging.getLogger(__name__)
 
 USERNAME = "antonace"
 AUTH_TOKEN = os.getenv("AUTH_TOKEN")
-GITHUB_FILE_PATH = os.path.join("stats", "github.json")
+GITHUB_FILE_PATH = os.path.abspath(os.path.join("stats", "github.json"))
 GITHUB_ACCEPTABLE_HEADERS = {
     "Accept-Encoding": "gzip, deflate, br",
     "Authorization": f"Bearer {AUTH_TOKEN}",
