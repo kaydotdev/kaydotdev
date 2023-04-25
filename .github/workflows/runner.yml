@@ -1,5 +1,8 @@
 name: "Update profile information every 6 hours"
 on:
+  push:
+    branches:
+      - master
   schedule:
     - cron: "0 */6 * * *"
 
