@@ -1,31 +1,43 @@
-name: 'Update profile information every 6 hours'
+name: "Update profile information every 6 hours"
 on:
   schedule:
-    - cron: '0 */6 * * *'
+    - cron: "0 */6 * * *"
 
 jobs:
   build:
     runs-on: ubuntu-latest
 
     steps:
-      - name: Checkout procedure
+      - name: Check out repository
         uses: actions/checkout@v2
-      - name: Setup Python
+
+      - name: Set up Python environment
         uses: actions/setup-python@v2
         with:
-          python-version: 3.8
-      - name: Install packages
+          python-version: "3.x"
+
+      - name: Install dependencies
         run: |
-          python -m pip install -r ./scripts/packages
-      - name: Execute scripts
+          python -m pip install --upgrade pip
+          if [ -f requirements.txt ]; then pip install -r requirements.txt; fi
+
+      - name: Get current date and time
+        id: current_datetime
+        run: |
+          echo "::set-output name=datetime::$(date +'%Y-%m-%d %H:%M:%S')"
+
+      - name: Run script
         env:
           AUTH_TOKEN: ${{ secrets.REPOSITORY_AUTH_TOKEN }}
         run: |
-          python ./scripts/wordcloud_generator.py
-      - name: Commit changes
+          python ./src/github.py
+
+      - name: Save profile updates to the repository
+        env:
+          CURRENT_DATETIME: ${{ steps.current_datetime.outputs.datetime }}
         run: |
-          git config --global user.email "octocat@anton.ace"
-          git config --global user.name "Octocat"
+          git config --global user.email ${{ secrets.USER_EMAIL }}
+          git config --global user.name ${{ secrets.USERNAME }}
           git add .
-          git commit -m "200 OK" || exit 0
+          git commit -m "$CURRENT_DATETIME profile update" || exit 0
           git push origin master
