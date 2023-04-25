@@ -14,8 +14,8 @@ logger = logging.getLogger(__name__)
 
 USERNAME = "antonace"
 AUTH_TOKEN = os.getenv("AUTH_TOKEN")
-GITHUB_RUNNER = os.path.abspath(__file__)
-GITHUB_FILE_PATH = os.path.join(GITHUB_RUNNER, "stats", "github.json")
+GITHUB_RUNNER_PATH = os.path.dirname(os.path.abspath(__file__))
+GITHUB_STATISTICS_PATH = os.path.join(GITHUB_RUNNER_PATH, "stats", "github.json")
 GITHUB_ACCEPTABLE_HEADERS = {
     "Accept-Encoding": "gzip, deflate, br",
     "Authorization": f"Bearer {AUTH_TOKEN}",
@@ -55,7 +55,7 @@ user_info = {
     "repo": {"total_forks": rep_forks_all, "total_stargazers": rep_stargazers_all},
 }
 
-logger.info(f"Overwriting Github API statistics in file: {GITHUB_FILE_PATH}.")
+logger.info(f"Overwriting Github API statistics in file: {GITHUB_STATISTICS_PATH}.")
 
-with open(GITHUB_FILE_PATH, "w") as file:
+with open(GITHUB_STATISTICS_PATH, "w") as file:
     json.dump(user_info, file)
