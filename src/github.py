@@ -45,9 +45,21 @@ if rep_response.status_code != 200:
     )
     sys.exit(1)
 
-rep_stats = rep_response.json()
-rep_forks_all = sum([stat.get("forks_count") for stat in rep_stats])
-rep_stargazers_all = sum([stat.get("stargazers_count") for stat in rep_stats])
+repositories = rep_response.json()
+rep_forks_all = sum(
+    [
+        repository.get("forks_count")
+        for repository in repositories
+        if not repository.get("private")
+    ]
+)
+rep_stargazers_all = sum(
+    [
+        repository.get("stargazers_count")
+        for repository in repositories
+        if not repository.get("private")
+    ]
+)
 
 # Recording statistics from Github API in file
 user_info = {
