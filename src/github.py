@@ -4,6 +4,7 @@ import json
 import logging
 import requests
 
+from typing import Optional
 from datetime import datetime
 
 
@@ -23,36 +24,42 @@ GITHUB_ACCEPTABLE_HEADERS = {
     "Authorization": f"Bearer {AUTH_TOKEN}",
 }
 
+
+def req_github_api(url: str, msg_prefix: Optional[str] = None) -> requests.Response:
+    response = requests.get(url, headers=GITHUB_ACCEPTABLE_HEADERS)
+
+    if response.status_code != 200:
+        err = response.json().get("message")
+        err_msg = f"{msg_prefix or 'Failed to fetch data from Github API'}: '{err}'."
+
+        logger.error(err_msg)
+        sys.exit(1)
+
+    return response
+
+
 # Fetching followers number from Github API
-profile_response = requests.get(f"https://api.github.com/users/{USERNAME}")
-
-if profile_response.status_code != 200:
-    err_message = profile_response.json().get("message")
-    logger.error(f"Failed to fetch user information from Github API: '{err_message}'.")
-    sys.exit(1)
-
-followers = profile_response.json().get("followers")
-
-if followers is None:
-    logger.error(f"Received an empty value for user followers number.")
-    sys.exit(1)
+user_resp = req_github_api(
+    f"https://api.github.com/users/{USERNAME}",
+    msg_prefix="Failed to fetch user information from Github API",
+)
+followers = user_resp.json().get("followers")
 
 # Fetching repositories information from Github API
-rep_response = requests.get(f"https://api.github.com/users/{USERNAME}/repos")
+repo_resp = req_github_api(
+    f"https://api.github.com/users/{USERNAME}/repos",
+    msg_prefix="Failed to get repositories statistics information from Github API",
+)
 
-if rep_response.status_code != 200:
-    err_message = rep_response.json().get("message")
-    logger.error(
-        f"Failed to get repositories information from Github API: '{err_message}'."
-    )
-    sys.exit(1)
-
-repositories = rep_response.json()
+repositories = repo_resp.json()
 rep_public = list(filter(lambda rp: not bool(rp.get("private")), repositories))
 
 rep_forks_all = sum(map(lambda rp: rp.get("forks_count"), rep_public))
 rep_stargazers_all = sum(map(lambda rp: rp.get("stargazers_count"), rep_public))
 rep_watchers_all = sum(map(lambda rp: rp.get("watchers_count"), rep_public))
+
+# Fetching views and clones from all public repositories
+
 
 # Recording statistics from Github API in file
 user_info = {
