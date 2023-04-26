@@ -4,6 +4,8 @@ import json
 import logging
 import requests
 
+from datetime import datetime
+
 
 logging.basicConfig(
     stream=sys.stdout,
@@ -46,25 +48,21 @@ if rep_response.status_code != 200:
     sys.exit(1)
 
 repositories = rep_response.json()
-rep_forks_all = sum(
-    [
-        repository.get("forks_count")
-        for repository in repositories
-        if not repository.get("private")
-    ]
-)
-rep_stargazers_all = sum(
-    [
-        repository.get("stargazers_count")
-        for repository in repositories
-        if not repository.get("private")
-    ]
-)
+rep_public = list(filter(lambda rp: not bool(rp.get("private")), repositories))
+
+rep_forks_all = sum(map(lambda rp: rp.get("forks_count"), rep_public))
+rep_stargazers_all = sum(map(lambda rp: rp.get("stargazers_count"), rep_public))
+rep_watchers_all = sum(map(lambda rp: rp.get("watchers_count"), rep_public))
 
 # Recording statistics from Github API in file
 user_info = {
+    "updated_on": datetime.now().strftime("%Y-%m-%d %H:%M:%S"),
     "followers": followers,
-    "repo": {"total_forks": rep_forks_all, "total_stargazers": rep_stargazers_all},
+    "repos": {
+        "forks": rep_forks_all,
+        "stargazers": rep_stargazers_all,
+        "watchers": rep_watchers_all,
+    },
 }
 
 logger.info(f"Overwriting Github API statistics in file: {GITHUB_STATISTICS_PATH}.")
